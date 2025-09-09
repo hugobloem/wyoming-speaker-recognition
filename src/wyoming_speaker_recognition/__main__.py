@@ -49,6 +49,12 @@ def parse_arguments():
         help="Enable training mode",
     )
     parser.add_argument(
+        "--threshold",
+        type=float,
+        default=0.75,
+        help="Similarity threshold for speaker recognition (default: 0.75)",
+    )
+    parser.add_argument(
         "--model-dir",
         default="pretrained_models/",
         help="Directory to store pre-trained models (default: pretrained_models/)",
@@ -75,10 +81,11 @@ async def main() -> None:
         savedir=args.model_dir,
         audiodir=args.audio_dir,
         training_mode=args.training_mode,
+        threshold=args.threshold,
     )
 
     passthrough = Passthrough(uri=config.passthrough_uri)
-    recognizer = SpeakerRecognizer(model=config.model, savedir=config.savedir, audiodir=config.audiodir)
+    recognizer = SpeakerRecognizer(model=config.model, savedir=config.savedir, audiodir=config.audiodir, threshold=config.threshold)
 
     # Set up logging
     logging.basicConfig(level=logging.DEBUG if args.debug else logging.INFO)

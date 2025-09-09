@@ -11,3 +11,4 @@ class WyomingSpeakerRecognitionConfig(BaseModel):
     savedir: DirectoryPath = DirectoryPath("pretrained_models/")
     audiodir: DirectoryPath = DirectoryPath("audio/")
     training_mode: bool = False
+    threshold: float = 0.75
