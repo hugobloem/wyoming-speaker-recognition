@@ -73,6 +73,7 @@ class EventHandler(AsyncEventHandler):
             _LOGGER.info(f"Saved training audio to {filename}")
             return
 
+        fhandle.seek(0)
         self.recognizer.recognize(fhandle)
 
     def initialize_buffer(self):

@@ -6,6 +6,7 @@ import os
 from glob import glob
 
 import torch
+import torchaudio
 from speechbrain.inference.speaker import SpeakerRecognition
 
 _LOGGER = logging.getLogger(__name__)
@@ -43,7 +44,10 @@ class SpeakerRecognizer:
         if not self._initialized:
             _LOGGER.warning("Recognizer not initialized. Initializing now.")
             self.initialize_recognizer()
-        audio = self._open_file(fhandle)
+        if isinstance(fhandle, io.BytesIO):
+           audio = self._open_bytestream(fhandle)
+        else:
+           audio = self._open_file(fhandle)
         embedding = self._generate_embedding(audio)
 
         score = self.similarity(embedding, self._known_embeddings)
@@ -71,10 +75,15 @@ class SpeakerRecognizer:
         speaker_names = [os.path.basename(af).replace(".wav", "") for af in audiofiles]
         return speaker_names, embeddings
 
-    def _open_file(self, audiofile: str| io.BytesIO) -> torch.Tensor:
+    def _open_file(self, audiofile: str) -> torch.Tensor:
         """Open an audio file."""
         return self._model.load_audio(audiofile)
 
+    def _open_bytestream(self, bytes: io.BytesIO) -> torch.Tensor:
+        """Open a bytestream object."""
+        signal, sr = torchaudio.load(bytes, channels_first=False)
+        signal = signal.to(self._model.device)
+        return self._model.audio_normalizer(signal, sr)
 
     def _generate_embedding(self, audio: torch.Tensor) -> torch.Tensor:
         """Generate speaker embeddings for a given audio file."""

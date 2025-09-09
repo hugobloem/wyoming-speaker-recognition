@@ -35,6 +35,7 @@ def parse_arguments():
     )
     parser.add_argument(
         "--passthrough-uri",
+        required=True,
         help="unix:// or tcp:// URI for speech recognition.",
     )
     parser.add_argument(
@@ -65,6 +66,7 @@ async def main() -> None:
     """Start Wyoming Microsoft STT server."""
     args = parse_arguments()
 
+    os.makedirs(args.audio_dir, exist_ok=True)
     os.makedirs(args.model_dir, exist_ok=True)
 
     config = WyomingSpeakerRecognitionConfig(
