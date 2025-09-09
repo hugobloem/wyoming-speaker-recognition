@@ -9,10 +9,10 @@
             "name": "Python Debugger: Current File with Arguments",
             "type": "debugpy",
             "request": "launch",
-            "module": "wyoming-speaker-recognition",
+            "module": "wyoming_speaker_recognition",
             "console": "integratedTerminal",
             "args": [
-                "--passthrough-uri", "tcp://localhost:10300", "--uri", "tcp://0.0.0.0:10302", "--debug",
+                "--passthrough-uri", "tcp://localhost:10300", "--uri", "tcp://0.0.0.0:10301", "--debug",
             ]
         }
     ]
