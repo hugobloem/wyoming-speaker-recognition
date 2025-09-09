@@ -25,6 +25,7 @@ jobs:
       uses: astral-sh/setup-uv@v6
       with:
         enable-cache: true
+        prune-cache: false
 
     - name: "Test"
       run: uv run pytest
