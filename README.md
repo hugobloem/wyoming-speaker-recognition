@@ -1,1 +1,0 @@
-# wyoming-speaker-recognition

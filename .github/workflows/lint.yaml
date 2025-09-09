@@ -1,0 +1,25 @@
+name: "Lint"
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  ruff:
+    name: "Ruff"
+    runs-on: "ubuntu-latest"
+    steps:
+        - name: "Checkout the repository"
+          uses: "actions/checkout@v5"
+
+        - name: "Set up Python"
+          uses: astral-sh/setup-uv@v6
+          with:
+            enable-cache: true
+
+        - name: "Run"
+          run: uv run ruff check .
