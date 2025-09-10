@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "wyoming_speaker_recognition",
+            "console": "integratedTerminal",
+            "args": [
+                "--passthrough-uri", "tcp://localhost:10300", "--uri", "tcp://0.0.0.0:10301", "--debug",
+            ]
+        }
+    ]
+}
